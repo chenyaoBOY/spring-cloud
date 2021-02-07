@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        #不同的实例id 相同的service-name 视为同一服务下的集群 可以做负载均衡策略  @LoadBalanced
+        instance-id: ${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+#        通过设置consul的service-name为服务的统一名称
+        service-name: consul-server-chenyao
+        health-check-path: /health
+        health-check-interval: 5s
+        #        health-check-headers:#健康检查设置请求头
+        heartbeat:
+          enabled: true
+        catalog-services-watch-delay: 100000
+        catalog-services-watch-timeout: 10
+
+  application:
+    name: consul-server
+management:
+  server:
+    port:4452
+
+
+server:
+  port: 8082

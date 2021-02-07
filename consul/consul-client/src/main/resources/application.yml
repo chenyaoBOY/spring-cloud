@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        instance-id:  ${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+        service-name: consul-client
+        health-check-path: /health
+        health-check-interval: 5s
+        #        health-check-headers:#健康检查设置请求头
+        heartbeat:
+          enabled: true
+        catalog-services-watch-delay: 100000
+        catalog-services-watch-timeout: 10
+
+  application:
+    name: consul-demo-client
+management:
+  server:
+    port:4452
+debug: true
+server:
+  port: 8088
+
